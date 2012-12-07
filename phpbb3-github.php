@@ -4,6 +4,10 @@ $forum = 5;
 $user_id = 86; // chatbot in our case.
 
 if (!isset($_POST['payload'])) { die('woops'); }
+// 207.97.227.253, 50.57.128.197, 108.171.174.178.
+if (!($_SERVER["REMOTE_ADDR"] == "207.97.227.253" || $_SERVER["REMOTE_ADDR"] == "50.57.128.197" || $_SERVER["REMOTE_ADDR"] == "108.171.174.178")) {
+    die('.');
+}
 
 function get_gitio_url($url)
 {
