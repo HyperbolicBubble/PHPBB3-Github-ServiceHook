@@ -54,7 +54,7 @@ foreach ($json_array['commits'] as $commit)
 	[b]Component[/b]: $repository
 	[b]Link[/b]: $tiny_url
 	[b]Author[/b]: $author
-	[b]Commit Message[/b]: $message
+	[b]Commit message[/b]: $message
 	";
 	
 	$time = time();
