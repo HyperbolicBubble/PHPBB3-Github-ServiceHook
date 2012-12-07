@@ -49,7 +49,7 @@ foreach ($json_array['commits'] as $commit)
 {
 	$tiny_url = get_gitio_url(stripslashes($commit['url']));
 	$author = $commit['author']['username'];
-	$message = $commit['message'];
+	$message = trim($commit['message']);
 	$post = "
 	[b]Component[/b]: $repository
 	[b]Link[/b]: $tiny_url
@@ -62,31 +62,31 @@ foreach ($json_array['commits'] as $commit)
 	$poll = $uid = $bitfield = $options = '';
 	
 	generate_text_for_storage($my_subject, $uid, $bitfield, $options, false, false, false);
-	generate_text_for_storage($my_text, $uid, $bitfield, $options, true, true, true);
+	generate_text_for_storage($post, $uid, $bitfield, $options, true, true, true);
 	
-	$data = array(
-		'forum_id'      => $forum,
-		'icon_id'      => false,
-		
-		'enable_bbcode'      => true,
-		'enable_smilies'   => true,
-		'enable_urls'      => true,
-		'enable_sig'      => true,
-		
-		'message'      => $post,
-		'message_md5'   => md5($post),
-		   
-		'bbcode_bitfield'   => $bitfield,
-		'bbcode_uid'      => $uid,
-		
-		'post_edit_locked'   => 0,
-		'topic_title'      => $my_subject,
-		'notify_set'      => false,
-		'notify'         => true,
-		'post_time'       => 0,
-		'forum_name'      => '',
-		'enable_indexing'   => true,
-	);
+    $data = array(
+        'forum_id'      => $forum,
+        'icon_id'      => false,
+        
+        'enable_bbcode'      => true,
+        'enable_smilies'   => true,
+        'enable_urls'      => true,
+        'enable_sig'      => true,
+        
+        'message'      => $post,
+        'message_md5'   => md5($post),
+               
+        'bbcode_bitfield'   => $bitfield,
+        'bbcode_uid'      => $uid,
+        
+        'post_edit_locked'   => 0,
+        'topic_title'      => $my_subject,
+        'notify_set'      => false,
+        'notify'         => true,
+        'post_time'       => 0,
+        'forum_name'      => '',
+        'enable_indexing'   => true,
+    );
     
 	submit_post('post', $my_subject, $user->data['username'], POST_NORMAL, $poll, $data);
 }
