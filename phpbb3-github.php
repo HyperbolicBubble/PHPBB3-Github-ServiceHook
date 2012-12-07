@@ -59,7 +59,6 @@ foreach ($json_array['commits'] as $commit)
 	$time = time();
 	$rawsubject = "[{$repository}] - {$author}";
 	$my_subject = utf8_normalize_nfc($rawsubject, '', true);
-	$my_text = utf8_normalize_nfc($post, '', true);
 	$poll = $uid = $bitfield = $options = '';
 	
 	generate_text_for_storage($my_subject, $uid, $bitfield, $options, false, false, false);
@@ -74,8 +73,8 @@ foreach ($json_array['commits'] as $commit)
 		'enable_urls'      => true,
 		'enable_sig'      => true,
 		
-		'message'      => $my_text,
-		'message_md5'   => md5($my_text),
+		'message'      => $post,
+		'message_md5'   => md5($post),
 		   
 		'bbcode_bitfield'   => $bitfield,
 		'bbcode_uid'      => $uid,
