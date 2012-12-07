@@ -7,7 +7,7 @@ if (!isset($_POST['payload'])) { die('woops'); }
 
 function get_gitio_url($url)
 {
-	$ch = curl_init();
+    $ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "http://git.io/");
 	curl_setopt($ch, CURLOPT_HEADER, true);
 	curl_setopt($ch, CURLOPT_POST, true);
@@ -42,29 +42,6 @@ $user->setup('common');
 /* Now we have a template for the user, insert chatbot details so it's under his account. Hackery! */
 $user->data = array_merge($user->data, $row);
 $auth->acl($user->data);
-$data = array(
-    'forum_id'      => $forum,
-    'icon_id'      => false,
-    
-    'enable_bbcode'      => true,
-    'enable_smilies'   => true,
-    'enable_urls'      => true,
-    'enable_sig'      => true,
-    
-    'message'      => $my_text,
-    'message_md5'   => md5($my_text),
-           
-    'bbcode_bitfield'   => $bitfield,
-    'bbcode_uid'      => $uid,
-    
-    'post_edit_locked'   => 0,
-    'topic_title'      => $my_subject,
-    'notify_set'      => false,
-    'notify'         => true,
-    'post_time'       => 0,
-    'forum_name'      => '',
-    'enable_indexing'   => true,
-);
 
 $json_array = json_decode(stripslashes($_POST['payload']), true);
 $repository = $json_array['repository']['name'];
@@ -89,9 +66,31 @@ foreach ($json_array['commits'] as $commit)
 	generate_text_for_storage($my_subject, $uid, $bitfield, $options, false, false, false);
 	generate_text_for_storage($my_text, $uid, $bitfield, $options, true, true, true);
 	
+	$data = array(
+		'forum_id'      => $forum,
+		'icon_id'      => false,
+		
+		'enable_bbcode'      => true,
+		'enable_smilies'   => true,
+		'enable_urls'      => true,
+		'enable_sig'      => true,
+		
+		'message'      => $my_text,
+		'message_md5'   => md5($my_text),
+		   
+		'bbcode_bitfield'   => $bitfield,
+		'bbcode_uid'      => $uid,
+		
+		'post_edit_locked'   => 0,
+		'topic_title'      => $my_subject,
+		'notify_set'      => false,
+		'notify'         => true,
+		'post_time'       => 0,
+		'forum_name'      => '',
+		'enable_indexing'   => true,
+	);
+    
 	submit_post('post', $my_subject, $user->data['username'], POST_NORMAL, $poll, $data);
 }
-
-
 
 ?>
