@@ -1,4 +1,5 @@
-PHPBB3-Github-ServiceHook
-=========================
+# PHPBB3-Github-ServiceHook
+A service hook for Github, it posts the commit as a new topic on your PHPBB3 installation.
 
-A service hook for Github, that posts commit messages as a new topic into a forum as a specific user.
+## Getting started
+TODO
