@@ -43,18 +43,19 @@ $user->setup('common');
 $user->data = array_merge($user->data, $row);
 $auth->acl($user->data);
 
-$json_array = json_decode(stripslashes($_POST['payload']), true);
+$json_array = json_decode($_POST['payload'], true);
 $repository = $json_array['repository']['name'];
 foreach ($json_array['commits'] as $commit)
 {
 	$tiny_url = get_gitio_url(stripslashes($commit['url']));
-	$author = $commit['author']['username'];
-	$message = trim($commit['message']);
+	$author = $commit['author']['name'];
+	$message = $commit['message'];
 	$post = "
 	[b]Component[/b]: $repository
 	[b]Link[/b]: $tiny_url
 	[b]Author[/b]: $author
-	[b]Commit message[/b]: " . $message;
+	[b]Commit message[/b]: $message
+    ";
 	
 	$time = time();
 	$rawsubject = "[{$repository}] - {$author}";
